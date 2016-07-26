@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="Bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<title>Bolinha</title>
+	<style type="text/css">
+		@media (min-width: 992px) 
+		{
+			div[role="main"]
+			{
+				height: 500px;
+			}
+		}
+		.container .jumbotron
+		{
+			border: none;
+			border-radius: 0cm;
+			margin-top: 5px;
+			padding: 5px;
+			background: white;
+			//text-align: left;
+		}
+    #main
+    {
+      padding: 0;
+      border: none;
+    }
+		.modal-backdrop.in
+		{
+			opacity: 0.8;
+		}
+    #canvas
+    {
+      background-color: black; 
+    } 
+    .sounds
+    {
+      display: none;
+    }
+    #not-select
+    {
+      -webkit-user-select: none; /* Chrome/Safari */        
+      -moz-user-select: none; /* Firefox */
+      -ms-user-select: none; /* IE10+ */
+    }
+    .som div
+    {
+      border: none;
+      text-align: left;
+      font-weight: 300;
+    }
+    .som label
+    {
+      font-weight: 300;
+      margin-bottom: 0px;
+    }
+    .title
+    {
+      font-size: 18px;
+      font-weight: 300;
+    }
+    .sobre
+    {
+      background: #fd69e4;
+      color:white;
+      border-radius: 10px;
+      padding: 5px;
+      font-weight: 300;
+      cursor: pointer;
+    }
+    .sobre:active
+    {
+      outline: blue solid 1px;
+    }
+    .c a:hover
+    {
+      text-decoration: none;
+    }
+	</style>
+</head>
+<body>
+	<div class="container">
+   		<div class="row">
+       		<div role="main" class="col-md-12" id="main">
+            
+       		</div>
+   		</div>
+	</div>
+  <div id="songs">
+    <img src="Kite.jpg" alt="MR. KITE" style="display:none;" id="kite"/>
+    <img src="kite2.jpg" alt="MR. KITE" style="display:none;" id="kite2"/>
+    <audio src="sounds/paddle-beep.ogg" id="barra" class="sounds"></audio>
+    <audio src="sounds/blue-beep.ogg" id="obstaculo" class="sounds"></audio>
+    <audio src="sounds/wall-beep.ogg" id="parede" class="sounds"></audio>
+    <audio src="sounds/Enemy Slain.mp3" id="singleKill" class="sounds"></audio>
+    <audio src="sounds/Double Kill Lol.mp3" id="doubleKill" class="sounds"></audio>
+    <audio src="sounds/Triple Kill Lol.mp3" id="tripleKill" class="sounds"></audio>
+    <audio src="sounds/quadrakill_lol.mp3" id="quadraKill" class="sounds"></audio>
+    <audio src="sounds/pentakill_lol.mp3" id="pentaKill" class="sounds"></audio>
+    <audio src="sounds/shut_down.mp3" id="shutDown" class="sounds"></audio>
+    <audio src="sounds/Aced Lol.mp3" id="ace" class="sounds"></audio>
+  </div>
+</body>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="Bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="Bootstrap/dist/js/bootbox.min.js"></script>
+    <script>//Extreme Go Horse 
+      if(window.outerHeight > window.outerWidth)
+        document.write('<script src="bolinha.js"><\/script>');
+      else
+        document.write('<script src="bolinhaPC.js"><\/script>'); 
+    </script>
+    <script type="text/javascript">
+    onload = function()
+    /*Não ouse mexer aqui. POG, Extreme Go Horse*/
+    {
+      var c = document.getElementById('main').offsetWidth;
+      var d = window.outerHeight*0.68;
+      document.getElementById('main').innerHTML = "<canvas id='canvas' width="+c+" height="+d+"></canvas>"
+      menu(c, d);
+    }
+    function unchekRadio()
+    {
+      var valores = [[false, true], [false, true]];
+      if(document.getElementsByName('som')[0].checked == true)
+        valores = [[true, false], [false, false]];
+      document.getElementsByName('somType').forEach( function(item, index){
+        item.checked = valores[index][0];
+        item.disabled = valores[index][1];
+      });
+    }
+    function menu(c, d)
+    {
+      var title = "<span class='c'>A PEQUENA BOLA <a href='sobre.html'><span class='sobre'>(?)</span></a></span>";
+      var message = "";
+      var buttons =  
+      {
+        success: 
+        {
+          label: "Jogar",
+          className: "btn-primary",
+          callback: function () {
+            var som = document.getElementsByName('som')[0].checked;
+            var somType = (document.getElementsByName('somType')[0].checked ? 'Google' : 'lol');
+            var obsType = (document.getElementsByName('obsType')[0].checked ? 'Normal' : 'Aleatorio');
+            var moveType = document.getElementsByName('moveType')[0].checked;
+            opcoes.sons.ligado = som;
+            opcoes.sons.tipo = somType;
+            opcoes.disposicaoObstaculo = obsType;
+            opcoes.botoes = moveType;
+            initComponents(c, d);
+          }
+        }
+      }
+      message = "<div class='row som'>"
+                + " <div class='col-md-12 col-xs-12'>"
+                + "   <label class='title' onclick='unchekRadio()'>"
+                + "    Sons <input type='checkbox' value='Enabled' name='som' checked>"
+                + "   </label>"
+                + " </div>"
+                + " <div class='col-md-11 col-md-offset-1 col-xs-11 col-xs-offset-1'>"
+                + "   <label><input type='radio' name='somType' checked> Normal Google</label>"
+                + " </div>"
+                + " <div class='col-md-11 col-md-offset-1 col-xs-11 col-xs-offset-1'>"
+                + "   <label><input type='radio' name='somType'> League Of Legends Woman</label>"
+                + " </div>"
+                + " <div class='col-md-12 col-xs-12'>"
+                + "   <label class='title'>Obstaculos</title>"
+                + "</div>"
+                + " <div class='col-md-11 col-md-offset-1 col-xs-11 col-xs-offset-1'>"
+                + "   <label><input type='radio' name='obsType' checked> Normal</label>"
+                + " </div>"
+                + " <div class='col-md-11 col-md-offset-1 col-xs-11 col-xs-offset-1'>"
+                + "   <label><input type='radio' name='obsType'> Aleatório</label>"
+                + " </div>"
+                + " <div class='col-md-12 col-xs-12'>"
+                + "   <label class='title'>Mobile movimento</title>"
+                + "</div>"
+                + " <div class='col-md-11 col-md-offset-1 col-xs-11 col-xs-offset-1'>"
+                + "   <label><input type='radio' name='moveType' checked> Setas</label>"
+                + " </div>"
+                + " <div class='col-md-11 col-md-offset-1 col-xs-11 col-xs-offset-1'>"
+                + "   <label><input type='radio' name='moveType'> Deslizar</label>"
+                + " </div>"
+                + "</div>";
+      bootbox.dialog({
+          title: title,
+          message: message,
+          buttons:buttons
+        });
+    }
+    </script>
+</html>

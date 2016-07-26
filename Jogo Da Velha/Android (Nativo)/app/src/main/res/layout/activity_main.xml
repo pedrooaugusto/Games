@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bg"
+    tools:context="com.pedroaugusto.jogo_da_velhaandroid.MainActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#FFFFFF"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="160dp"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/namePlayer2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Henry VIII(X)"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/pontox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vitorias: 0"
+                android:textSize="15sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="45dp"
+            android:layout_height="match_parent"
+            android:background="#D3D3D3"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/rodada"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="26sp"
+                android:text="1"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="155dp"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:orientation="vertical"
+            android:gravity="right">
+
+            <TextView
+                android:id="@+id/namePlayer1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Prudence (o)"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/pontoo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vitorias: 0"
+                android:textSize="15sp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        style="@style/suaVez"
+        android:text="Sua vez"
+        android:id="@+id/q42"/>
+
+    <LinearLayout
+        android:id="@+id/quadro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            style="@style/row">
+            <TextView
+                style="@style/rowItem"
+                android:id="@+id/q1"/>
+            <TextView
+                style="@style/rowItem"
+                android:id="@+id/q2"/>
+            <TextView
+                style="@style/rowItem"
+                android:id="@+id/q3"/>
+        </LinearLayout>
+        <LinearLayout
+            style="@style/row">
+            <TextView
+                style="@style/rowItem"
+                android:id="@+id/q4"/>
+            <TextView
+                style="@style/rowItem"
+                android:id="@+id/q5"/>
+            <TextView
+                style="@style/rowItem"
+                android:id="@+id/q6"/>
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/row">
+            <TextView
+                style="@style/rowItem"
+                android:id="@+id/q7"/>
+            <TextView
+                style="@style/rowItem"
+                android:id="@+id/q8"/>
+            <TextView
+                style="@style/rowItem"
+                android:id="@+id/q9"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        style="@style/next"
+        android:text="Next"
+        android:id="@+id/next"
+        android:onClick="animateNext"/>
+
+    <TextView
+        android:layout_marginTop="4dp"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:textSize="18sp"
+        android:text="Acesse: pedrooaugusto.github.io"/>
+
+</LinearLayout>

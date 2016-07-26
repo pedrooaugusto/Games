@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    android:orientation="vertical"
+    tools:context="com.pedroaugusto.cobrinha.MainActivity"
+    android:background="#fcfcfc"
+    android:clickable="true"
+    android:focusable="true">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Jogo da Cobrinha"
+        android:textSize="30sp"
+        android:padding="5dp"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:id="@+id/textView"
+        android:textColor="#000000"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Por Pedro Augusto"
+        android:layout_marginTop="5dp"
+        android:textSize="25sp"
+        android:padding="5dp"
+        android:gravity="center"
+        android:id="@+id/textView1"
+        android:textColor="#000000"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Acesse: pedrooaugusto.github.io para mais!"
+        android:textSize="20sp"
+        android:layout_marginTop="5dp"
+        android:padding="5dp"
+        android:gravity="center"
+        android:id="@+id/textView2"
+        android:textColor="#000000"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Jogar!"
+        android:layout_marginTop="20dp"
+        android:id="@+id/button"
+        android:textSize="25sp"
+        android:layout_gravity="center_horizontal"
+        android:background="#7373d1"
+        android:textColor="@android:color/white"
+        android:onClick="comecar"/>
+</LinearLayout>

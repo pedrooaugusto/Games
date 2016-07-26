@@ -1,0 +1,127 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#312D2D"
+    android:orientation="vertical"
+    android:padding="5dp"
+    tools:context=".MainActivity" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textColor="@android:color/white"
+        android:textSize="25sp"
+        android:text="A Pequena Bola"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="21sp"
+        android:layout_marginLeft="20dp"
+        android:text="By: Pedro Augusto\nAcesse: pedrooaugusto.github.io" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Padrão das Barras: "
+        android:textSize="20sp"
+        android:padding="5dp"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="20dp"/>
+
+    <RadioGroup
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/radioButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:text="Padrão"
+            android:layout_marginLeft="35dp"
+            android:checked="true"/>
+
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:text="Aleatório"
+            android:layout_marginLeft="35dp" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sons: "
+        android:textSize="20sp"
+        android:padding="5dp"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="20dp"/>
+
+    <CheckBox
+        android:id="@+id/checkBox1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@android:color/white"
+        android:layout_marginLeft="35dp"
+        android:text="Ligado"
+        android:checked="true"/>
+
+    <RadioGroup
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/radioGroup1">
+
+        <RadioButton
+            android:id="@+id/radioButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:text="Original Atari Breakout"
+            android:layout_marginLeft="35dp"
+            android:checked="true"/>
+        <RadioButton
+            android:id="@+id/radioButton4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:textSize="16sp"
+            android:textColor="@android:color/white"
+            android:text="League of Legends Woman"
+            android:layout_marginLeft="35dp" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:padding="5dp"
+        android:textColor="@android:color/white"
+        android:textSize="25sp"
+        android:background="#1E37B3"
+        android:text="Iniciar"
+        android:onClick="start"/>
+
+</LinearLayout>

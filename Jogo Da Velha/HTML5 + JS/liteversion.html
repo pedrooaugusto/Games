@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="Bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" media="screen">
+  <link href="../baseDaPagina.css" rel="stylesheet" media="screen">
+  <title>Jogo Da Velha</title>
+  <style type="text/css">
+    span.tab
+    {
+      padding-left: 15px; /* Or desired space*/
+    }
+    span.tab2
+    {
+      padding-left: 25px;
+    }
+    span.tab3
+    {
+      padding-left: 35px;
+    }
+    span.tab4
+    {
+      padding-left: 45px;
+    }
+    span.n
+    {
+      color: #4e0c0c;
+      font-weight: 600;
+    }
+    span.t
+    {
+      color: #361780;
+      font-weight: 600;
+    }
+    .modal-backdrop.in
+    {
+      opacity: 0.8;
+    }
+    .modal-body
+    {
+      padding-top: 5px;
+    }
+    .modal-footer
+    {
+      padding-top: 5px;
+    }
+    .placar
+    {
+      padding: 5px;
+      padding-bottom:0; 
+      //background: white;
+      border: none;
+      background: rgb(242, 242, 242);
+    }
+    .celulaPlacar
+    {
+      //margin-top: 2px;
+      //margin-bottom: 2px;
+      border: none;
+      //font-family: 'Segoe UI';
+      font-size: 17px;
+      //background: white;
+      color: #716f6f;
+      border: none;
+      text-align: left;
+      overflow: hidden;
+      //text-shadow: 0px 1px 0px black;
+    }
+    .butRight
+    {
+      text-align: right;
+    }
+    @media (min-width: 992px) 
+    {
+      div[role="main"]
+      {
+        height: 500px;
+      }
+      #boxs td
+      {
+        height: 120px;
+        //width: 140px;
+      }
+      .celulaPlacar
+      {
+        font-size: 20px;
+        //border: solid 1px lightgray;
+        text-align: center;
+      }
+      .placar
+      {
+        padding: 15px;
+      }
+      .butRight
+      {
+        text-align: center;
+      }
+    }
+    .game
+    {
+      padding-left:15px;
+      padding-right: 15px;
+      padding-top: 0;
+      padding-bottom: 0;
+      //background: red;
+      //margin:0px;
+    }
+    .l1
+    {
+      background: blue;
+      text-align: center;
+    }
+    .caixaMarcar
+    {
+      background: green;
+      height: 120px;
+    }
+    .inputBox
+    {
+      height: 95%;
+      width: 95%;
+      border: solid 1px lightgray;
+      text-align: center;
+      color: black;
+      //background: red;
+      font-size: 35px;
+      cursor:pointer;
+    }
+    #boxs td
+    {
+      height: 100px;
+    }
+    @media (min-width: 992px) 
+    {
+      div[role="main"]
+      {
+        height: 500px;
+      }
+      #boxs td
+      {
+        height: 120px;
+        //width: 140px;
+      }
+      .inputBox
+      {
+        font-size: 50px;
+      }
+    }
+    .noBorder
+    {
+      border: none;
+      text-align: left;
+      font-size: 18px;
+    }
+    .noBorder1
+    {
+      border: none;
+    }
+    .input-md
+    {
+      text-align: center;
+      font-size: 18px;
+    }
+    label
+    {
+      font-weight: 400;
+    }
+    #next
+    {
+      color: white;
+      text-shadow: 0px 1px gray;
+      font-family: 'Segoe UI';
+      //font-weight: bold;
+      background: #1aaf1a;
+      box-shadow: 0px 1px 1px gray;
+      cursor: pointer;
+      font-size: 20px;
+      padding: 5px;
+      text-align: center;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      visibility: hidden;
+      opacity: 0.0;
+    }
+    #rodada
+    {
+      font-size: 40px;
+    }
+    #j1, #j2
+    {
+      -webkit-transition-duration: 0.7s;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+      <div class="row">
+        <div role="main" class="col-md-12">
+          <div class="row placar">
+            <div class="col-md-4 col-xs-5 celulaPlacar" id="j1">
+              <span id="nomeJogador1">
+                Pedro Augusto
+              </span>(X)
+              <br>wins: <span id="pontoJogador1">5</span>
+            </div>
+            <div class="col-md-2 col-md-offset-1 col-xs-2 celulaPlacar" style="text-align:center;">
+              <span id="rodada">0</span>
+            </div>
+            <div class="col-md-4 col-md-offset-1 col-xs-5 celulaPlacar butRight" id="j2">
+              <span id="nomeJogador2">
+                The Walrus
+              </span>(O)
+              <br>wins: <span id="pontoJogador2">6</span>
+            </div>
+          </div>
+          <div class="row game">
+            <div class="col-md-6 col-md-offset-3" id="next" onclick="quadro.clear();">
+              NEXT
+            </div>
+            <table id="boxs" class="col-md-6 col-md-offset-3 noBorder1">
+              <tr>
+                <td><input type="text" class="inputBox" readonly></td>
+                <td><input type="text" class="inputBox" readonly></td>
+                <td><input type="text" class="inputBox" readonly></td>
+              </tr>
+              <tr>
+                <td><input type="text" class="inputBox" readonly></td>
+                <td><input type="text" class="inputBox" readonly></td>
+                <td><input type="text" class="inputBox" readonly></td>
+              </tr>
+              <tr>
+                <td><input type="text" class="inputBox" readonly></td>
+                <td><input type="text" class="inputBox" readonly></td>
+                <td><input type="text" class="inputBox" readonly></td>
+              </tr>
+            </table>
+          </div>  
+        </div>
+      </div>
+    </div>
+</body>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="Bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="Bootstrap/dist/js/bootbox.min.js"></script>
+    <script src="jogoDaVelha.js"></script>
+    <script type="text/javascript">
+    onload = function () 
+    {
+        game = new Game();
+      bot = new Bot();
+      quadro = new Quadro;
+        menu();
+        game.hideTwoPlayer();
+      }
+  </script>
+</html>

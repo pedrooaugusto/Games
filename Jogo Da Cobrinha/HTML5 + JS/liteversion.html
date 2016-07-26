@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Jogo da cobrinha</title>
+    <style type="text/css">
+      @media (min-width: 992px) 
+      {
+        div[role="main"]
+        {
+          height: 500px;
+        }
+      }
+      #canvas
+      {
+        background-color: #2E1961; 
+      }
+  </style>
+  </head>
+  <body>  
+    <div class="container">
+        <div class="row">
+            <div role="main" class="col-md-12" id="main">
+              
+            </div>
+        </div>
+    </div>
+  </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="snake.js"></script>
+    <script>
+      if(window.outerHeight > window.outerWidth)
+        currentValores = valoresMobile;
+      else
+        currentValores = valoresPC; 
+    </script>
+    <script type="text/javascript">
+      onload = function()
+      {
+        var c = document.getElementById('main').offsetWidth;
+          var d = window.outerHeight*(window.outerHeight > window.outerWidth ? 0.85 : 0.68);
+          document.getElementById('main').innerHTML = "<canvas id='canvas' width="+c+" height="+d+"></canvas>";
+          initComponents(c, d);
+      }
+   </script>
+</html>

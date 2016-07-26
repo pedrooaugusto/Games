@@ -1,0 +1,66 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+	android:background="#1054A8"
+	android:padding="3dp">
+    
+	<TextView
+		style="@style/dimension"
+		android:text="Jogo Da Velha"
+		android:textSize="25sp"
+		android:textColor="#FFFFFF"
+		android:gravity="center"/>
+	
+	<TextView
+		style="@style/dimension"
+		android:textSize="20sp"
+		android:text="Modo de Jogo"
+		android:textColor="#FFFFFF"/>
+	
+	<RadioButton
+		style="@style/dimension"
+		android:id="@+id/singlePlayer"
+		android:text="Single Player"
+		android:textColor="#FFFFFF"/>
+	
+	<RadioButton
+		style="@style/dimension"
+		android:id="@+id/multiPlayer"
+		android:text="Multiplayer Player"
+		android:textColor="#FFFFFF"/>
+	
+	<LinearLayout
+		style="@style/dimension"
+		android:gravity="center">	
+		
+		<EditText
+			style="@style/button"
+			android:id="@+id/nameJogador1"
+			android:text="Prudence"
+			android:textColor="#6995C5"
+			android:layout_marginRight="5dp"/>
+		
+		<EditText
+			style="@style/button"
+			android:id="@+id/nameJogador2"
+			android:text="Jogador 2"
+			android:textColor="#BBB7B6"/>
+	</LinearLayout>
+	
+	<Button
+		style="@style/dimension"
+		android:id="@+id/go"
+		android:text="Go!"
+		android:gravity="center"
+		android:textSize="20sp"
+		android:layout_height="45dp"
+		android:textColor="#FFFFFF"
+		android:background="#6995C5"/>
+
+	<TextView
+		style="@style/dimension"
+		android:text="By: Pedro Augusto"
+		android:textSize="18sp"
+		android:textColor="#FFFFFF"/>
+</LinearLayout>
