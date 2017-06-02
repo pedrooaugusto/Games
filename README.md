@@ -1,4 +1,4 @@
-## Games Implementations
+## Games
 Implementações de jogos conhecidos em diferentes linguagens de programação sem o uso de frameworks.
 ## Jogos
   * **Breakout Game**
