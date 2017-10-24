@@ -1,5 +1,6 @@
 ## Games
 Implementações de jogos conhecidos em diferentes linguagens de programação sem o uso de frameworks.
+**Você pode conferir um livedemo para alguns desses jogos em: https://pedrooaugusto.github.io/#portfolio**
 ## Jogos
   * **Breakout Game**
     * Uma implementação do popular jogo da década de 70 Atari Breakout. As versões para Android e desktop foram feitas com Java enquanto a versão para web foi feita com Javascript.
@@ -12,5 +13,3 @@ Implementações de jogos conhecidos em diferentes linguagens de programação s
     * Jogo da Velha onde se tem a oportunidade de se jogar contra a melhor jogadora do mundo. Não acredita? Então tente vencê-la: https://pedrooaugusto.github.io/posts/jogo-da-velha/
   * **Quebra Cabeça**
     * Um programa primeiramente feito em Java que utliza uma imagem fornecida pelo usuário para montar um jogo de quebra cabeças. Com imagem em mãos o programa a corta x pedaços, embaralha-os e então temos um quebra cabeça. A versão desktop, como já dito, foi feita com java e a versão web com Javascript e HTML.
-
-**Você pode conferir um livedemo para alguns desses jogos em: https://pedrooaugusto.github.io/#portfolio**
