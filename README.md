@@ -1,6 +1,6 @@
 ## Games
 Implementações de jogos conhecidos em diferentes linguagens de programação sem o uso de frameworks.
-* Você pode conferir um livedemo para alguns desses jogos em: https://pedrooaugusto.github.io/#portfolio *
+Você pode conferir um livedemo para alguns desses jogos em: https://pedrooaugusto.github.io/#portfolio
 ## Jogos
   * **Breakout Game**
     * Uma implementação do popular jogo da década de 70 Atari Breakout. As versões para Android e desktop foram feitas com Java enquanto a versão para web foi feita com Javascript.
