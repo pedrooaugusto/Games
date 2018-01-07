@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+
+	<meta charset="UTF-8">
+	<title>Hello, doctor</title>
+	<style>
+		*
+		{
+			margin: 0;
+			padding: 0;
+		}
+		.container
+		{
+			background: black;
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			display:  flex;
+			flex-flow: column;
+		}
+		.board
+		{
+			//padding: 5px;
+			//background: white;
+			background: #383636;
+			width: 1110px;
+			height: 465px;
+			margin-top: 6px;
+			margin-left: 130px;
+		}
+		.card
+		{
+			border: solid 0.5px white;
+			color: white;
+			position: absolute;
+			overflow: hidden;
+			background-image: url("alluka.jpg");
+			background-repeat: no-repeat;
+			background-size: 1110px 465px;
+			cursor: move;
+		}
+		#game-menu-top
+		{
+			display: flex;
+			background: #828282;
+			width: 1180px;
+			height: 60px;
+			margin-top: 35px;
+			margin-left: 130px;
+		}
+		.menu-item
+		{
+			background: #bfbfbf;
+			display: flex;
+  			align-items: center;
+  			justify-content: center;
+  			width: 1110px;
+  			padding-left: 5px;
+  			padding-right: 5px;
+		}
+		.menu-item div
+		{
+			align-self: center;
+			font-size: 21px;
+		}
+		.menu-item .label
+		{
+			align-self: center;
+			font-size: 21px;
+		}
+		.menu-item input[type='text']
+		{
+			height: 25px;
+			font-size: 15px;
+			border: solid 1px gray;
+			outline: none;
+			padding: 2px;
+			margin-left: 5px;
+		}
+		.menu-item input[type='number']
+		{
+			height: 25px;
+			font-size: 15px;
+			border: solid 1px gray;
+			outline: none;
+			padding: 2px;
+			width: 50px;
+			margin-left: 5px;	
+		}
+		#btn-load
+		{
+			font-size: 16px;
+			padding: 3px;
+			margin-left: 2px;
+			cursor: pointer;
+		}
+		#btn-start
+		{
+			font-size: 16px;
+			padding: 3px;
+			margin-left: 4px;
+			width: 60px;
+			cursor: pointer;
+		}
+		.quadro-tipo
+		{
+			height: 29px;
+			margin-left: 4px;
+			font-size: 16px;
+			border: solid 1px gray;
+			outline: none;
+		}
+		.quadro-tipo option
+		{
+			font-size: 16px;
+		}
+		#timer
+		{
+			background: #ec44a8;
+			background: -webkit-linear-gradient(#de3980, #ec44a8); /* For Safari 5.1 to 6.0 */
+		    background: -o-linear-gradient(#de3980, #ec44a8); /* For Opera 11.1 to 12.0 */
+		    background: -moz-linear-gradient(#de3980, #ec44a8); /* For Firefox 3.6 to 15 */
+		    background: linear-gradient(#de3980, #ec44a8); /* Standard syntax */
+			display: flex;
+  			align-items: center;
+  			justify-content: center;
+  			width: 70px;
+  			font-size: 24px;
+  			color: white;
+  			text-shadow: 1px 1px 1px gray;
+		}
+		#game-menu-footer
+		{
+			display: flex;
+			background: #828282;
+			width: 1110px;
+			height: 60px;
+			margin-top: 15px;
+			margin-left: 130px;
+		}
+		#image-on-board
+		{
+			display: none;
+			background-repeat: no-repeat; 
+			width: 1110px;
+			height: 465px;
+			margin-top: 6px;
+			margin-left: 130px;
+		}
+		#win
+		{
+			display: none;
+		}
+		#btn-nextImage{
+			margin-left: 4px;
+			//height: 26px;
+			width: 60px;
+			font-size: 18px;
+			padding: 5px; 
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div id="game-menu-top">
+			<div class="menu-item">
+					<span class="label">URL image: </span>
+					<input type="text" id="img-path"
+						placeholder="Ex: i.imgur.com/qdW8Rfp.jpg ou C:/users/pedro/beatles.jpg"
+						size="50"
+						value="http://media.rtl.fr/cache/9WK8oErB_jErqenO5X3vNQ/1728v1080-2/online/image/2015/0220/7776684182_la-vraie-pochette-de-l-album-one-of-the-boys-de-katy-perry.jpg"/>
+					<select class="quadro-tipo" onchange="changeColAndRow(this);">
+						<option value="0-0">Escolha um tipo de quadro</option>
+						<option value="2-2">2 x 2</option>
+						<option value="4-4">4 x 4</option>
+						<option value="8-8">8 x 8</option>
+						<option value="2-5" selected>2 x 5</option>
+						<option value="5-5">5 x 5</option>
+					</select>
+					<span class="label" 
+						style="margin-left: 4px;">
+						Linhas: </span> <input type="number" value="2" id="row" />
+					<span class="label" style="margin-left: 4px;">
+						Colunas: </span> <input type="number" value="5" id="col" />
+					<input type="button" id="btn-start" onclick="board.startGame()" value="Start"/>
+			</div>
+			<div id="timer">
+				00:00
+			</div>
+		</div>
+		<div class="board" id="board">
+			<!--
+				Estrutura básica de um card
+
+				<div class="card" draggable="true" 
+					style="margin-left: 0px;"
+					id="c1"
+					ondrop="return dragDrop(event);"
+					ondragstart="return dragStart(event)"
+					ondragover="return dragOver(event);">
+					<div class="img"></div>
+				</div>
+			-->
+		</div>
+		<div id="image-on-board">
+			<img src="alluka.jpg" width="1110" height="465" />
+		</div>
+		<div id="game-menu-footer">
+			<div class="menu-item" style="background: white; border: inset 1px gray;">
+				<span class="label" 
+				style="color: royalblue; cursor: pointer; font-size: 30px;"
+				onmouseover="board.showImage()" onmouseout="board.hideImage()">
+					Ver imagem
+				</span>
+			</div>
+			<div class="menu-item" id="win" style="background: white; border: inset 1px gray;">
+				<span class="label" 
+				style="color: royalblue; font-size: 30px;">
+					Você completou em 00'min e 00'sec
+				</span>
+				<input type="button" value="next" id="btn-nextImage" onclick="board.proximaImagem();"/>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	var board = new Board();
+	var controleCard = new ControleCard();
+	var cronometro = new Cronometro();
+	function changeColAndRow (option) 
+	/*
+		OnChange do combo box... nada de mais aqui
+	*/
+	{
+		document.getElementById("row").value = option.value.substring(0, 1);
+		document.getElementById("col").value = option.value.substring(2);
+	}
+	onload = function()
+	{
+		controleCard.gerarCards(2, 5);
+		cronometro.start();
+	};
+	
+	function Cronometro () 
+	/*
+		Representa o cronometro que fica no lado
+		direito da tela.
+		Ele diz a quanto tempo o quebra-cabeça
+		esta sendo montado.
+	*/
+	{
+		this.htmlObject = document.getElementById("timer");
+		this.currentTime = {min: 0, sec: 0};
+		this.lookId = 2;
+		var this_ = this;
+		this.start = function()
+		/*
+			O que faz um método chamado start dentro
+			de um cronometro?
+			-Na verdade deveria se chamar restart, uma
+			vez que ele começa sempre do zero...
+		*/
+		{
+			clearInterval(this.lookId);
+			this.zerar();
+			this.lookId = setInterval(this.laco, 1000);
+		},
+		this.stop = function()
+		/*
+			Para a contagem
+		*/
+		{
+			clearInterval(this.lookId);
+		},
+		this.zerar = function()
+		/*
+			when you are strange... 
+			no-one remember your name...
+			Zera o cronometro
+		*/
+		{
+			this.currentTime.sec = 0;
+			this.currentTime.min = 0;
+		},
+		this.laco = function () 
+		/*
+			Esta é a função que é executada a cada
+			1 segundo.
+			Ela soma 1 no segundo e caso o mesmo
+			tenha atingido 60 o zera, e soma mais 1
+			no minuto, porque é isso que os relógios
+			usualmente fazem.
+		*/
+		{
+			this_.currentTime.sec++;
+			if(this_.currentTime.sec === 59)
+			{
+				this_.currentTime.sec = 0;
+				this_.currentTime.min++;
+			}
+			var min = this_.currentTime.min;
+			var sec = this_.currentTime.sec;
+			this_.htmlObject.innerHTML = (min < 10 ? "0"+min : min)+":"+(sec < 10 ? "0"+sec : sec);
+		}
+	}
+	function Board() 
+	/*
+		Representa o quadro no qual as peças
+		do quebra cabeça ficam;
+	*/
+	{
+		this.htmlObject = document.getElementById("board");
+		this.imageOnBoard = document.getElementById("image-on-board");
+		this.imgPathInput = document.getElementById("img-path");
+		this.winTextDiv = document.getElementById("win");
+		this.dimensao = {x: 1110, y: 465};
+		this.espaco = 1;
+		this.image = "alluka.jpg";
+		this.index = 1;
+		this.someImages = ["https://olsenbloom.files.wordpress.com/2009/12/beatles-sgt-peppers-lonely-heart-club-band.jpg", "http://media.rtl.fr/cache/9WK8oErB_jErqenO5X3vNQ/1728v1080-2/online/image/2015/0220/7776684182_la-vraie-pochette-de-l-album-one-of-the-boys-de-katy-perry.jpg", "http://cosmouk.cdnds.net/16/12/1458749374-harry-potter-and-the-sorcerer-s-stone-the-sorcerers-stone-23841509-1280-544.png", "https://static.justwatch.com/backdrop/759985/s1440/doctor-who", "http://3.bp.blogspot.com/-S7Z6WVrbSjg/VIvk5Xv6OEI/AAAAAAAAJ18/RCxg43obsYc/s1600/The%2BSolvay%2BConference,%2Bprobably%2Bthe%2Bmost%2Bintelligent%2Bpicture%2Bever%2Btaken,%2B1927%2B(2).jpg", "http://orig12.deviantart.net/b77c/f/2014/156/e/9/return_by_thesheepninja-d7l6c9h.gif", "http://nerddahora.com/wp-content/uploads/2014/06/Jinx-Cosplay-League-Of-Legends3-5.jpg"];
+		this.showImage = function()
+		/*
+			Mostra a imagem que o usuário precisa montar.
+			A imagem fica na tela até o usuário tirar o
+			mouse do componente que dispara esta função.
+		*/
+		{
+			this.htmlObject.style.display = "none";
+			this.imageOnBoard.children[0].src = this.image;
+			this.imageOnBoard.style.display = "block";
+		},
+		this.proximaImagem = function()
+		/*
+			Passa para a proxíma imagem, no botão de next
+		*/
+		{
+			if(this.index === this.someImages.length - 1)
+			{
+				alert("Minhas imagens acabam aqui, carregue outras and have fun!");
+				this.index = -1;	
+			}
+			this.index+=1;
+			this.imgPathInput.value = this.someImages[this.index];
+			this.startGame();
+		},
+		this.hideImage = function()
+		/*
+			O user tirou o mouse de cima do...
+		*/
+		{
+			this.htmlObject.style.display = "block";
+			this.imageOnBoard.style.display = "none";
+		},
+		this.showWinText = function()
+		/*
+			Mostra o texto de vitória
+		*/
+		{
+			var text = "Você completou em "+cronometro.currentTime.min+" min e "+cronometro.currentTime.sec+" sec";
+			this.winTextDiv.children[0].innerText = text;
+			this.winTextDiv.style.display = "flex";
+		},
+		this.paintCards = function ()
+		/* 
+			Desenha os cards na tela usando o innerHTML 
+		*/
+		{
+			this.htmlObject.innerHTML="";
+			for(var i = 0; i < controleCard.cards.length; i++)
+				this.htmlObject.innerHTML+=controleCard.cards[i].toHTMLText();
+		}
+		this.paintOriginalImage = function()
+		/*
+			Desenha a imagem original na tela.
+			Retira todos as peças do board e coloca
+			como background do board a imagem que as 
+			peças faziam.
+		*/
+		{
+			this.htmlObject.innerHTML="";
+			this.htmlObject.style.backgroundImage = "url('"+board.image+"')";
+			this.htmlObject.style.backgroundRepeat= "no-repeat";
+			this.htmlObject.style.backgroundSize = "1110px 465px";
+		}
+		this.startGame = function()
+		/*
+			Começa o jogo.
+			Loga a imagem e cria os cards
+		*/
+		{
+			this.image = this.formatName(this.imgPathInput.value);
+			var row = document.getElementById("row").value;
+		    var col = document.getElementById("col").value;
+		    if(col > 0 && row > 0)
+		    {
+				controleCard.gerarCards(parseInt(row), parseInt(col));
+				cronometro.start();	
+				this.winTextDiv.style.display = "none";//not supose to be here
+				//alert(this.image);
+			}
+		}
+		this.formatName = function(name)
+		/*
+			Trata o que foi pego no input de url da imagem.
+			*Se alguma barra pra esquerda foi digita
+			ela é posta pra direita.
+			*No caso de links caso n tenha o http:// o coloca. 
+		*/
+		{
+			if((name.substring(0, 7) === "http://" ||
+				 name.substring(0, 8) === "https://")
+				|| name.substring(1, 2) === ":")
+
+				return name.split("\\").join("/");
+			else
+				return "http://"+name;
+		}
+	}
+	function ControleCard () 
+	/*
+		Responsável por manipular o array com todas
+		as peças do quebra-cabeça
+	*/
+	{
+		
+		this.cards = new Array();
+		this.pesquisaCard = function(id) 
+		/* 
+			Busca o index de um card a partir de seu id
+		*/
+		{
+			for (var i = this.cards.length - 1; i >= 0; i--)
+				if(this.cards[i].id == id)
+					return i;
+			return -1;
+		};
+		this.victory = function()
+		/* 
+			Verifica se as peças do quebra cabeça estão posicionadas
+		 	de tal forma que a figura fique visível
+		*/
+		{
+    		for (var i = this.cards.length - 1; i >= 0; i--)
+    			if (!this.cards[i].isOriginalPosition())
+    				return false;
+    		return true;
+    	};
+    	this.embaralhaCards = function()
+    	/* 
+    		Depois de criadas as peças precisam ser embaralhadas
+    	*/
+    	{
+    		var numCards = this.cards.length;
+    		var escolhidos = [];
+    		var aux = this.cards;
+    		while(escolhidos.length != numCards)
+    		{
+    			var index = Math.round((Math.random()*(numCards - 1)));
+    			if(escolhidos.indexOf(index) == -1)
+    				escolhidos.push(index);
+    		}
+    		var positions = [];
+    		for (var i = 0; i < numCards; i++)
+    		{
+    			var k = this.cards[escolhidos[i]];
+    			positions.push({x: k.left, y: k.top});
+    		}	
+    		for (var i = 0; i < numCards; i++)
+    			this.cards[i].changePosition(positions[i]);
+    	};
+    	this.gerarCards = function(linhas, colunas)
+    	/* 
+    		Gera as peças do quebra cabeça de acordo
+    		com o número de linhas e colunas, embralha-as e por
+    		fim desenha-as na tela
+    	*/
+    	{
+    		this.cards = [];
+    		var numeroDeCards = linhas * colunas;
+			var alturaPorCard = (board.dimensao.y/linhas) - board.espaco;
+			var larguraPorCard = (board.dimensao.x/colunas) - board.espaco;
+			var id  = 1;//contador
+			var left = 0;//margin left
+			var top = 0;//margin top
+			var cont = 1;//axiliar para compor as medidas
+			for(var i = 0; i < linhas; i++)
+			{
+				for(var j = 0; j < colunas; j++)
+				{
+					left = (larguraPorCard * (cont - 1));
+					left += board.espaco*(cont - 1);
+					this.cards.push(
+						new Card(id, alturaPorCard, larguraPorCard, left, top)
+					);
+					id+=1;
+					cont+=1;
+				}
+				left = 0;
+				top = (alturaPorCard * (i + 1));
+				top += board.espaco*(i+1);
+				cont = 1;
+			}
+			this.embaralhaCards();
+			board.paintCards();
+    	}
+	}
+	function Card(id, altura, largura, left, top)
+	/*
+		Representa uma peça do quebra-cabeça
+	*/
+	{
+		this.id = id;
+		this.altura = altura;
+		this.largura = largura;
+		this.left = left+130+(board.espaco/2);
+		this.top = top+100+(board.espaco/2);
+		this.originalLeft = this.left;
+		this.originalTop = this.top;
+		this.clip = "background-position-x:"+(left*-1)+"px;background-position-y:"+(top*-1)+"px";
+		this.changePosition = function (position) 
+		/* 
+			Troca a posição da peça, quando ela é arrastada
+		*/
+		{
+			this.left = position.x;
+			this.top = position.y;
+		};
+		this.isOriginalPosition = function () 
+		/* 
+			Compra a posição atual da peça com a sua posição
+			original(a posição para formar a imagem), se ambas
+			forem iguais a peça esta no lugar certo
+		*/
+		{
+			if(this.originalLeft === this.left 
+				&& this.originalTop === this.top)
+				return true;
+			else
+				return false;
+		};
+		this.toHTMLText = function()
+		/* 
+			Transforma este card em uma div HTML
+		*/
+		{
+			//Não havera espaço entre as inst css
+			var t = "<div class='card' ";
+			t+="draggable='true' ";
+			t+="style=background-image:url('"+board.image+"');left:"+this.left+"px;width:"+this.largura+"px;";
+			t+="height:"+this.altura+"px;top:"+this.top+"px;";
+			t+="line-height:"+this.altura+"px;";
+			t+=""+this.clip+"; id='c"+this.id+"'";
+			t+="ondragstart='return dragStart(event);' ";
+			t+="ondrop='return dragDrop(event);' ondragover='return dragOver(event);'> ";
+			t+="</div>";
+			return t;
+		}
+	}
+	function dragStart(ev) {
+        ev.dataTransfer.setData("id", ev.target.getAttribute('id'));
+    }
+    function dragOver(ev) {
+    	//alert(11);
+        return false;
+    }
+    function dragDrop(ev) 
+    {
+
+    	/* ALTERAÇÕES NA VIEW */
+        var pecaView1ID = ev.dataTransfer.getData("id");
+        var pecaView1 = document.getElementById(pecaView1ID);
+        var leftPeca1 = pecaView1.style.left;
+        var topPeca1 = pecaView1.style.top;
+        pecaView1.style.left = ev.target.style.left;
+        pecaView1.style.top = ev.target.style.top;
+        ev.target.style.left = leftPeca1;
+        ev.target.style.top = topPeca1;
+        
+        /* ALTERAÇÕES NO CONTROLE */
+        var c1 = controleCard.pesquisaCard(pecaView1ID.substring(1));
+        var c2 = controleCard.pesquisaCard(ev.target.getAttribute("id").substring(1));
+        var positionC1 = {
+        	x: controleCard.cards[c1].left,
+        	y: controleCard.cards[c1].top,
+        };
+        var positionC2 = {
+        	x: controleCard.cards[c2].left,
+        	y: controleCard.cards[c2].top,
+        };
+        controleCard.cards[c1].changePosition(positionC2);
+        controleCard.cards[c2].changePosition(positionC1);
+        if(controleCard.victory()){
+        	alert("VICTORY");
+        	board.paintOriginalImage();
+        	cronometro.stop();
+        	board.showWinText();
+        }
+    }
+</script>
+</html>
+<!--
+			$("#display-on-list").on('click', function(){
+			if($(this).text() === "Display on list mode")
+			{
+				$("#myCarousel").slideUp();
+				$("#tt").show();
+				$(this).text("Display on list mode");
+			}
+			else
+			{
+				$("#myCarousel").show();
+				$("#tt").slideUp();
+				$(this).text("Display on gallery mode");
+			}
+		});
+-->
