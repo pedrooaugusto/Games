@@ -1,0 +1,89 @@
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+      canvas{
+        border: solid 1px black;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="1200" height="600"></canvas>
+    <script>
+      const canvas = document.getElementById('myCanvas');
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      img.src = 'alluka.jpg';
+      img.onload = function() {
+        const pattern = ctx.createPattern(img, 'no-repeat');
+
+        ctx.beginPath();
+        
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = "5";
+
+
+
+        ctx.moveTo(350/*347.6*/, 400);
+
+        ctx.lineTo(400, 400);
+
+        ctx.quadraticCurveTo(425, 450, 450, 400);
+
+        ctx.lineTo(500, 400);
+
+        ctx.lineTo(500, 450);
+
+        ctx.quadraticCurveTo(550, 475, 500, 500);
+
+        ctx.lineTo(500, 550);
+
+        ctx.lineTo(450, 550);
+
+        ctx.quadraticCurveTo(425, 600, 400, 550);
+
+        ctx.lineTo(350, 550);
+
+        ctx.lineTo(350, 500);
+
+        ctx.quadraticCurveTo(300, 475, 350, 450);
+
+        ctx.lineTo(350, 400);
+
+        ctx.stroke();
+
+        ctx.fillStyle = pattern;
+
+        ctx.fill();
+
+        ctx.closePath();
+
+      }
+      // ctx.fill();
+      // ctx.closePath();
+      // var img = new Image();
+      // img.src = 'alluka.jpg';
+      // img.onload = function() {
+      // var pattern = context.createPattern(img, 'repeat');
+      // context.beginPath();
+      // context.moveTo(170, 80);
+      // context.bezierCurveTo(130, 100, 130, 150, 230, 150);
+      // context.bezierCurveTo(250, 180, 320, 180, 340, 150);
+      // context.bezierCurveTo(420, 150, 420, 120, 390, 100);
+      // context.bezierCurveTo(430, 40, 370, 30, 340, 50);
+      // context.bezierCurveTo(320, 5, 250, 20, 250, 50);
+      // context.bezierCurveTo(200, 5, 150, 20, 170, 80);
+
+      // context.closePath();
+      // context.lineWidth = 5;
+      // context.fillStyle = pattern;
+      // context.fill();
+      // context.strokeStyle = 'blue';
+      // context.stroke();
+      //};
+    </script>
+  </body>
+</html>
